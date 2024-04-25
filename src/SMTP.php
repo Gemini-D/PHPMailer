@@ -406,7 +406,7 @@ class SMTP
         $errstr = '';
         if ($streamok) {
             $socket_context = stream_context_create($options);
-            set_error_handler([$this, 'errorHandler']);
+            // set_error_handler([$this, 'errorHandler']);
             $connection = stream_socket_client(
                 $host . ':' . $port,
                 $errno,
@@ -421,7 +421,7 @@ class SMTP
                 'Connection: stream_socket_client not available, falling back to fsockopen',
                 self::DEBUG_CONNECTION
             );
-            set_error_handler([$this, 'errorHandler']);
+            // set_error_handler([$this, 'errorHandler']);
             $connection = fsockopen(
                 $host,
                 $port,
@@ -430,7 +430,7 @@ class SMTP
                 $timeout
             );
         }
-        restore_error_handler();
+        // restore_error_handler();
 
         //Verify we connected properly
         if (!is_resource($connection)) {
@@ -485,13 +485,13 @@ class SMTP
         }
 
         //Begin encrypted connection
-        set_error_handler([$this, 'errorHandler']);
+        // set_error_handler([$this, 'errorHandler']);
         $crypto_ok = stream_socket_enable_crypto(
             $this->smtp_conn,
             true,
             $crypto_method
         );
-        restore_error_handler();
+        // restore_error_handler();
 
         return (bool) $crypto_ok;
     }
@@ -1164,9 +1164,9 @@ class SMTP
         } else {
             $this->edebug('CLIENT -> SERVER: ' . $data, self::DEBUG_CLIENT);
         }
-        set_error_handler([$this, 'errorHandler']);
+        // set_error_handler([$this, 'errorHandler']);
         $result = fwrite($this->smtp_conn, $data);
-        restore_error_handler();
+        // restore_error_handler();
 
         return $result;
     }
@@ -1267,9 +1267,9 @@ class SMTP
         while (is_resource($this->smtp_conn) && !feof($this->smtp_conn)) {
             //Must pass vars in here as params are by reference
             //solution for signals inspired by https://github.com/symfony/symfony/pull/6540
-            set_error_handler([$this, 'errorHandler']);
+            // set_error_handler([$this, 'errorHandler']);
             $n = stream_select($selR, $selW, $selW, $this->Timelimit);
-            restore_error_handler();
+            // restore_error_handler();
 
             if ($n === false) {
                 $message = $this->getError()['detail'];
