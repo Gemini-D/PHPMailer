@@ -1,5 +1,5 @@
 {
-    "name": "phpmailer/phpmailer",
+    "name": "gemini-d/phpmailer",
     "type": "library",
     "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
     "authors": [
@@ -56,6 +56,9 @@
         "psr/log": "For optional PSR-3 debug logging",
         "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication",
         "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+    },
+    "replace": {
+        "PHPMailer/PHPMailer": "^6.0"
     },
     "autoload": {
         "psr-4": {
